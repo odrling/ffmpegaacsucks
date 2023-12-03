@@ -16,6 +16,7 @@ struct ffaacsucks_result *ffaacsucks_check(char *filepath) {
   int ret;
   struct ffaacsucks_result *res = malloc(sizeof(struct ffaacsucks_result));
   res->n_streams = 0;
+  res->streams = NULL;
 
   ret = avformat_open_input(&s, filepath, NULL, NULL);
 
@@ -69,6 +70,7 @@ free_avf:
 }
 
 void ffaacsucks_result_free(struct ffaacsucks_result *res) {
-  free(res->streams);
+  if (res->streams != NULL)
+    free(res->streams);
   free(res);
 }
