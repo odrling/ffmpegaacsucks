@@ -5,9 +5,16 @@ libavdeps += dependency('libavformat')
 libavdeps += dependency('libavutil')
 libavdeps += dependency('libavcodec')
 
+libffmpegaacsucks = library(
+  'ffmpegaacsucks',
+  'libffmpegaacsucks.c',
+  dependencies: libavdeps,
+  install: true,
+)
+
 ffmpegaacsucks_exe = executable(
   'ffmpegaacsucks',
   'ffmpegaacsucks.c',
-  dependencies: libavdeps,
+  link_with: libffmpegaacsucks,
   install: true,
 )
