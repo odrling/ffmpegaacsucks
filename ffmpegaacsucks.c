@@ -20,9 +20,9 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
   } else {
     if (ffa_res->n_streams < 0)
-      fprintf(stderr, "failed to analyse file %s", argv[1]);
+      fprintf(stderr, "failed to analyse file %s\n", argv[1]);
     else
-      printf("no Lavc/FFmpeg AAC stream found.");
+      printf("no Lavc/FFmpeg AAC stream found.\n");
 
     ffaacsucks_result_free(ffa_res);
     return EXIT_FAILURE;
