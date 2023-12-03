@@ -6,12 +6,12 @@
 #define FFMPEGAACSUCKS_FAILURE -1
 
 struct ffaacsucks_result {
-    int n_streams;
-    int *streams;
+  int n_streams;
+  int *streams;
 };
 
-struct ffaacsucks_result* ffaacsucks_check(char* filepath);
+struct ffaacsucks_result *ffaacsucks_check(char *filepath);
 
-void ffaacsucks_result_free(struct ffaacsucks_result* res);
+void ffaacsucks_result_free(struct ffaacsucks_result *res);
 
 #endif
