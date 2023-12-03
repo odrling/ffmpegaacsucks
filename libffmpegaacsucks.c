@@ -11,16 +11,19 @@
 #define NOT_FOUND_STR "no Lavc/FFmpeg AAC stream was found\n"
 
 
-int ffaacsucks_check(char* filepath) {
+struct ffaacsucks_result* ffaacsucks_check(char* filepath) {
     AVFormatContext *s = NULL;
     unsigned int i, aac_streams;
-    int ret, return_value = FFMPEGAACSUCKS_UNDETECTED;
+    int ret;
+    struct ffaacsucks_result *res = malloc(sizeof(struct ffaacsucks_result));
+    res->n_streams = 0;
 
     ret = avformat_open_input(&s, filepath, NULL, NULL);
 
     if (ret < 0) {
         perror("failed to load file");
-        exit(FFMPEGAACSUCKS_FAILURE);
+        res->n_streams = -1;
+        return res;
     }
     aac_streams = 0;
 
@@ -35,11 +38,10 @@ int ffaacsucks_check(char* filepath) {
         }
     }
 
-    if (aac_streams == 0) {
-        printf(NOT_FOUND_STR);
+    if (aac_streams == 0)
         goto free_avf;
-    }
 
+    res->streams = malloc(sizeof(int) * aac_streams);
     AVPacket *pkt = av_packet_alloc();
 
     while (aac_streams > 0) {
@@ -52,10 +54,7 @@ int ffaacsucks_check(char* filepath) {
         int cmp = strncmp(comment, "Lavc", 4);
         aac_streams--;
         if (cmp == 0) {
-            printf("stream %d is a Lavc/FFmpeg AAC stream\n", pkt->stream_index);
-            return_value = FFMPEGAACSUCKS_DETECTED;
-        } else if (aac_streams == 0) {
-            printf(NOT_FOUND_STR);
+            res->streams[res->n_streams++] = pkt->stream_index;
         }
         s->streams[pkt->stream_index]->discard = AVDISCARD_ALL;
 
@@ -68,5 +67,10 @@ free_avf:
     avformat_close_input(&s);
     avformat_free_context(s);
 
-    return return_value;
+    return res;
+}
+
+void ffaacsucks_result_free(struct ffaacsucks_result* res) {
+    free(res->streams);
+    free(res);
 }
