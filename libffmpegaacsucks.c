@@ -57,6 +57,7 @@ int ffaacsucks_check(char* filepath) {
         } else if (aac_streams == 0) {
             printf(NOT_FOUND_STR);
         }
+        s->streams[pkt->stream_index]->discard = AVDISCARD_ALL;
 
         av_packet_unref(pkt);
     }
