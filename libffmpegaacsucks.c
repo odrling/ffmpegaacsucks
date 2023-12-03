@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "libffmpegaacsucks.h"
+#include "ffmpegaacsucks.h"
 
 #define NOT_FOUND_STR "no Lavc/FFmpeg AAC stream was found\n"
 

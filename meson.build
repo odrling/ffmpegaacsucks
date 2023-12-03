@@ -5,6 +5,8 @@ libavdeps += dependency('libavformat')
 libavdeps += dependency('libavutil')
 libavdeps += dependency('libavcodec')
 
+install_headers('ffmpegaacsucks.h')
+
 libffmpegaacsucks = library(
   'ffmpegaacsucks',
   'libffmpegaacsucks.c',
