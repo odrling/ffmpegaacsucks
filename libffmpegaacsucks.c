@@ -30,7 +30,6 @@ struct ffaacsucks_result *ffaacsucks_check(char *filepath) {
     AVStream *st = s->streams[i];
 
     if (st->codecpar->codec_id == AV_CODEC_ID_AAC) {
-      // first aac stream id
       aac_streams++;
     } else {
       st->discard = AVDISCARD_ALL;
