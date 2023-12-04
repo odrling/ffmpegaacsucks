@@ -8,12 +8,14 @@
 
 #include "ffmpegaacsucks.h"
 
+#define FFAACSUCKS_LAVC_SIGNATURE "Lavc"
+
 #define NOT_FOUND_STR "no Lavc/FFmpeg AAC stream was found\n"
 
 struct ffaacsucks_result *ffaacsucks_check(char *filepath) {
   AVFormatContext *s = NULL;
   unsigned int i, aac_streams;
-  int ret;
+  int ret, pkt_type, namelen, skip;
   struct ffaacsucks_result *res = malloc(sizeof(struct ffaacsucks_result));
   res->n_streams = 0;
   res->streams = NULL;
@@ -48,15 +50,31 @@ struct ffaacsucks_result *ffaacsucks_check(char *filepath) {
     if (ret < 0)
       perror("av_read_frame");
 
-    // skip first 3 bytes
-    char *comment = (char *)pkt->buf->data + 3;
-    int cmp = strncmp(comment, "Lavc", 4);
     aac_streams--;
+
+    uint8_t b = pkt->buf->data[0];
+    pkt_type = (b & 0xe0) >> 5;
+    if (pkt_type != 6) {
+      fprintf(stderr, "unexpected packet type found in stream %d (%d)\n",
+              pkt->stream_index, pkt_type);
+      goto next_pkt;
+    }
+
+    namelen = (b & 0x1e) >> 1;
+
+    if (namelen == 15)
+      skip = 3;
+    else
+      skip = 2;
+
+    char *comment = (char *)pkt->buf->data + skip;
+    int cmp = strncmp(comment, FFAACSUCKS_LAVC_SIGNATURE, 4);
     if (cmp == 0) {
       res->streams[res->n_streams++] = pkt->stream_index;
     }
-    s->streams[pkt->stream_index]->discard = AVDISCARD_ALL;
 
+next_pkt:
+    s->streams[pkt->stream_index]->discard = AVDISCARD_ALL;
     av_packet_unref(pkt);
   }
 
