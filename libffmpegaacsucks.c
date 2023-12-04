@@ -55,8 +55,8 @@ struct ffaacsucks_result *ffaacsucks_check(char *filepath) {
     uint8_t b = pkt->buf->data[0];
     pkt_type = (b & 0xe0) >> 5;
     if (pkt_type != 6) {
-      fprintf(stderr, "unexpected packet type found in stream %d (%d)\n",
-              pkt->stream_index, pkt_type);
+      fprintf(stderr, "%s: unexpected packet type found in stream %d (%d)\n",
+              filepath, pkt->stream_index, pkt_type);
       goto next_pkt;
     }
 
