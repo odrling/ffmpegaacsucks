@@ -19,8 +19,12 @@ bool ffaacsucks_check_aac_stream_packet(AVPacket *pkt, char *filepath) {
   uint8_t b = pkt->buf->data[0];
   pkt_type = (b & 0xe0) >> 5;
   if (pkt_type != 6) {
-    fprintf(stderr, "%s: unexpected packet type found in stream %d (%d)\n",
-            filepath, pkt->stream_index, pkt_type);
+    if (getenv("FFMPEGAACSUCKS_DEBUG") != NULL)
+      fprintf(
+          stderr,
+          "%s: unexpected packet type found for Lavc/FFMPEG AAC in stream %d "
+          "(%d)\n",
+          filepath, pkt->stream_index, pkt_type);
     return false;
   }
 
