@@ -35,9 +35,8 @@ bool ffaacsucks_check_aac_stream_packet(AVPacket *pkt, char *filepath) {
   return (strncmp(comment, FFAACSUCKS_LAVC_SIGNATURE, 4)) == 0;
 }
 
-struct ffaacsucks_result *
-ffaacsucks_priv_check_avfcontext(AVFormatContext *s, char *filepath,
-                                 struct ffaacsucks_result *res) {
+void ffaacsucks_priv_check_avfcontext(AVFormatContext *s, char *filepath,
+                                      struct ffaacsucks_result *res) {
   unsigned int i, aac_streams = 0;
   int ret;
 
@@ -52,7 +51,7 @@ ffaacsucks_priv_check_avfcontext(AVFormatContext *s, char *filepath,
   }
 
   if (aac_streams == 0)
-    return res;
+    return;
 
   res->streams = malloc(sizeof(int) * aac_streams);
   AVPacket *pkt = av_packet_alloc();
@@ -72,8 +71,6 @@ ffaacsucks_priv_check_avfcontext(AVFormatContext *s, char *filepath,
   }
 
   av_packet_free(&pkt);
-
-  return res;
 }
 
 struct ffaacsucks_result *ffaacsucks_check_avfcontext(AVFormatContext *s,
@@ -82,7 +79,9 @@ struct ffaacsucks_result *ffaacsucks_check_avfcontext(AVFormatContext *s,
   res->n_streams = 0;
   res->streams = NULL;
 
-  return ffaacsucks_priv_check_avfcontext(s, filepath, res);
+  ffaacsucks_priv_check_avfcontext(s, filepath, res);
+
+  return res;
 }
 
 struct ffaacsucks_result *ffaacsucks_check(char *filepath) {
