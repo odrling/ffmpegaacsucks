@@ -25,4 +25,6 @@ bool ffaacsucks_check_aac_stream_packet(AVPacket *pkt, char *filepath);
 
 void ffaacsucks_result_free(struct ffaacsucks_result *res);
 
+const char *ffaacsucks_version();
+
 #endif

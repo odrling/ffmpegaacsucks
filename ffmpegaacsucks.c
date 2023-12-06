@@ -11,6 +11,11 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
+  if (strcmp(argv[1], "--version") == 0) {
+    printf("ffmpegaacsucks %s\n", ffaacsucks_version());
+    return EXIT_SUCCESS;
+  }
+
   struct ffaacsucks_result *ffa_res = ffaacsucks_check(argv[1]);
   if (ffa_res->n_streams > 0) {
     for (i = 0; i < ffa_res->n_streams; i++)
