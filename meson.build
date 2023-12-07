@@ -23,3 +23,6 @@ ffmpegaacsucks_exe = executable(
   link_with: libffmpegaacsucks,
   install: true,
 )
+
+pkg = import('pkgconfig')
+pkg.generate(libffmpegaacsucks)
