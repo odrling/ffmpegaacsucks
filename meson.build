@@ -26,3 +26,5 @@ ffmpegaacsucks_exe = executable(
 
 pkg = import('pkgconfig')
 pkg.generate(libffmpegaacsucks)
+
+ffmpegaacsucks_dep = declare_dependency(link_with: libffmpegaacsucks)
