@@ -44,7 +44,7 @@ bool ffaacsucks_check_aac_stream_packet(AVPacket *pkt, char *filepath) {
   return (strncmp(comment, FFAACSUCKS_LAVC_SIGNATURE, 4)) == 0;
 }
 
-void ffaacsucks_priv_check_avfcontext(AVFormatContext *s, char *filepath,
+static void ffaacsucks_priv_check_avfcontext(AVFormatContext *s, char *filepath,
                                       struct ffaacsucks_result *res) {
   unsigned int i, aac_streams = 0;
   int ret;
