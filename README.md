@@ -14,6 +14,8 @@ This program reads the encoded stream to check if this header is present.
 
 ## Compiling
 
+You'll need the ffmpeg/libav libraries installed on your system.
+
 ```
 meson setup build
 meson compile -C build
