@@ -4,13 +4,15 @@
 #include <libavformat/avformat.h>
 #include <stdbool.h>
 
-#define FFMPEGAACSUCKS_DETECTED 1
-#define FFMPEGAACSUCKS_UNDETECTED 0
-#define FFMPEGAACSUCKS_FAILURE -1
+enum ffaacsucks_result_code {
+  FFMPEGAACSUCKS_DETECTED = 1,
+  FFMPEGAACSUCKS_UNDETECTED = 0,
+  FFMPEGAACSUCKS_FAILURE = -1,
+};
 
 struct ffaacsucks_result {
   int n_streams;
-  int *streams;
+  enum ffaacsucks_result_code *streams;
 };
 
 struct ffaacsucks_result *ffaacsucks_check(char *filepath);
