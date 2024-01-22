@@ -15,6 +15,8 @@ libffmpegaacsucks = library(
   version_h,
   dependencies: libavdeps,
   install: true,
+  version: meson.project_version(),
+  soversion: '1',
 )
 
 ffmpegaacsucks_exe = executable(
