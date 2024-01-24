@@ -5,7 +5,7 @@ libavdeps += dependency('libavformat')
 libavdeps += dependency('libavutil')
 libavdeps += dependency('libavcodec')
 
-version_h = vcs_tag(input: 'version.h.in', output:'version.h')
+version_h = vcs_tag(command: ['git', 'describe'], input: 'version.h.in', output:'version.h')
 
 install_headers('ffmpegaacsucks.h')
 
