@@ -1,4 +1,4 @@
-project('ffmpegaacsucks', 'c', version: '1.0.1')
+project('ffmpegaacsucks', 'c', version: '1.0.3')
 
 libavdeps = []
 libavdeps += dependency('libavformat')
