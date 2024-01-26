@@ -14,9 +14,7 @@
 
 #define NOT_FOUND_STR "no Lavc/FFmpeg AAC stream was found\n"
 
-const char *ffaacsucks_version() {
-  return FFMPEGAACSUCKS_VERSION;
-}
+const char *ffaacsucks_version() { return FFMPEGAACSUCKS_VERSION; }
 
 bool ffaacsucks_check_aac_stream_packet(AVPacket *pkt, char *filepath) {
   int pkt_type, skip, namelen;
@@ -45,7 +43,7 @@ bool ffaacsucks_check_aac_stream_packet(AVPacket *pkt, char *filepath) {
 }
 
 static void ffaacsucks_priv_check_avfcontext(AVFormatContext *s, char *filepath,
-                                      struct ffaacsucks_result *res) {
+                                             struct ffaacsucks_result *res) {
   unsigned int i, aac_streams = 0;
   int ret;
 
