@@ -5,8 +5,15 @@ libavdeps += dependency('libavformat')
 libavdeps += dependency('libavutil')
 libavdeps += dependency('libavcodec')
 
-version_h = vcs_tag(command: ['git', 'describe', '--dirty=+', '--always'],
-                    input: 'version.h.in', output:'version.h')
+git = find_program('git', required: false)
+
+if git.found()
+  # avoids detection issues in some cases, such as git worktrees
+  version_h = vcs_tag(command: [git, 'describe', '--dirty=+', '--always'],
+                      input: 'version.h.in', output:'version.h')
+else
+  version_h = vcs_tag(input: 'version.h.in', output:'version.h')
+endif
 
 install_headers('ffmpegaacsucks.h')
 
