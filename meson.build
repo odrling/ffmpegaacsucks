@@ -1,4 +1,4 @@
-project('ffmpegaacsucks', 'c', version: '1.0.4')
+project('ffmpegaacsucks', 'c', version: '1.1.0')
 
 libavdeps = []
 libavdeps += dependency('libavformat')
@@ -24,7 +24,7 @@ libffmpegaacsucks = library(
   dependencies: libavdeps,
   install: true,
   version: meson.project_version(),
-  soversion: '1',
+  soversion: '2',
 )
 
 ffmpegaacsucks_exe = executable(

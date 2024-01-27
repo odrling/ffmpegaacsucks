@@ -113,9 +113,3 @@ struct ffaacsucks_result *ffaacsucks_check(char *filepath) {
 
   return res;
 }
-
-void ffaacsucks_result_free(struct ffaacsucks_result *res) {
-  if (res->streams != NULL)
-    free(res->streams);
-  free(res);
-}

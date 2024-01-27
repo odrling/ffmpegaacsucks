@@ -15,6 +15,12 @@ struct ffaacsucks_result {
   enum ffaacsucks_result_code *streams;
 };
 
+static inline void ffaacsucks_result_free(struct ffaacsucks_result *res) {
+  if (res->streams != NULL)
+    free(res->streams);
+  free(res);
+}
+
 struct ffaacsucks_result *ffaacsucks_check(char *filepath);
 
 // NOTE: ffaacsucks_check_avfcontext will read frames from aac stream and
@@ -24,8 +30,6 @@ struct ffaacsucks_result *ffaacsucks_check_avfcontext(AVFormatContext *s,
                                                       char *filepath);
 
 bool ffaacsucks_check_aac_stream_packet(AVPacket *pkt, char *filepath);
-
-void ffaacsucks_result_free(struct ffaacsucks_result *res);
 
 const char *ffaacsucks_version();
 
