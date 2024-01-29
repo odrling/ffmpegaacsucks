@@ -30,6 +30,7 @@ libffmpegaacsucks = library(
 ffmpegaacsucks_exe = executable(
   'ffmpegaacsucks',
   'ffmpegaacsucks.c',
+  dependencies: libavdeps,
   link_with: libffmpegaacsucks,
   install: true,
 )
