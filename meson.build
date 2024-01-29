@@ -1,9 +1,9 @@
 project('ffmpegaacsucks', 'c', version: '1.1.0')
 
 libavdeps = []
-libavdeps += dependency('libavformat')
-libavdeps += dependency('libavutil')
-libavdeps += dependency('libavcodec')
+libavdeps += dependency('libavformat', fallback: ['ffmpeg', 'libavformat_dep'])
+libavdeps += dependency('libavutil', fallback: ['ffmpeg', 'libavutil_dep'])
+libavdeps += dependency('libavcodec', fallback: ['ffmpeg', 'libavcodec_dep'])
 
 git = find_program('git', required: false)
 
