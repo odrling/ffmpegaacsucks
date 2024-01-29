@@ -15,12 +15,14 @@ else
   version_h = vcs_tag(input: 'version.h.in', output:'version.h')
 endif
 
-install_headers('ffmpegaacsucks.h')
+install_headers('include/ffmpegaacsucks.h')
+inc = include_directories('include')
 
 libffmpegaacsucks = library(
   'ffmpegaacsucks',
   'libffmpegaacsucks.c',
   version_h,
+  include_directories: inc,
   dependencies: libavdeps,
   install: true,
   version: meson.project_version(),
@@ -30,6 +32,7 @@ libffmpegaacsucks = library(
 ffmpegaacsucks_exe = executable(
   'ffmpegaacsucks',
   'ffmpegaacsucks.c',
+  include_directories: inc,
   dependencies: libavdeps,
   link_with: libffmpegaacsucks,
   install: true,
@@ -38,4 +41,5 @@ ffmpegaacsucks_exe = executable(
 pkg = import('pkgconfig')
 pkg.generate(libffmpegaacsucks)
 
-ffmpegaacsucks_dep = declare_dependency(link_with: libffmpegaacsucks)
+ffmpegaacsucks_dep = declare_dependency(link_with: libffmpegaacsucks,
+                                        include_directories: [inc])
