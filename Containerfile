@@ -1,9 +1,9 @@
-FROM alpine AS builder 
+ARG ARCH
+FROM ghcr.io/odrling/gentoo-crossdev-images:$ARCH-llvm17 AS builder 
 
 COPY . /ffmpegaacsucks
 
-RUN apk add musl-dev meson clang compiler-rt git linux-headers lld tar
-RUN cd /ffmpegaacsucks && /ffmpegaacsucks/ci/build.sh
+RUN cd /ffmpegaacsucks && /ffmpegaacsucks/ci/build.sh --cross-file ci/$ARCH-unknown-linux-musl.txt
 
 FROM alpine
 
