@@ -13,8 +13,7 @@ RUN apk add musl-devel meson clang clang-rt-devel llvm-devel-static git lld
 
 COPY . /ffmpegaacsucks
 
-RUN cd /ffmpegaacsucks && ls ci && \
-    ARCH=$ARCH ci/build.sh --cross-file ci/$ARCH-unknown-linux-musl.txt
+RUN cd /ffmpegaacsucks && ARCH=$ARCH ci/build.sh
 
 FROM alpine
 
