@@ -1,15 +1,10 @@
 project('ffmpegaacsucks', 'c', version: '1.1.2',
-        default_options: ['warning_level=3', 'werror=true', 'c_std=gnu17'])
-
-ffmpeg_default_opts = []
+        default_options: ['warning_level=3', 'c_std=gnu17'])
 
 libavdeps = []
-libavdeps += dependency('libavformat', fallback: ['ffmpeg', 'libavformat_dep'],
-                        default_options: ffmpeg_default_opts)
-libavdeps += dependency('libavutil', fallback: ['ffmpeg', 'libavutil_dep'],
-                        default_options: ffmpeg_default_opts)
-libavdeps += dependency('libavcodec', fallback: ['ffmpeg', 'libavcodec_dep'],
-                        default_options: ffmpeg_default_opts)
+libavdeps += dependency('libavformat', fallback: ['ffmpeg', 'libavformat_dep'])
+libavdeps += dependency('libavutil', fallback: ['ffmpeg', 'libavutil_dep'])
+libavdeps += dependency('libavcodec', fallback: ['ffmpeg', 'libavcodec_dep'])
 
 git = find_program('git', required: false)
 
