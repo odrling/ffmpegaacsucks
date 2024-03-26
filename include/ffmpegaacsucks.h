@@ -31,6 +31,6 @@ struct ffaacsucks_result *ffaacsucks_check_avfcontext(AVFormatContext *s,
 
 bool ffaacsucks_check_aac_stream_packet(AVPacket *pkt, char *filepath);
 
-const char *ffaacsucks_version();
+const char *ffaacsucks_version(void);
 
 #endif
