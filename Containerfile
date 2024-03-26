@@ -1,7 +1,7 @@
 FROM ghcr.io/odrling/chimera:x86_64 AS builder
 ARG ARCH
 
-RUN apk add musl-devel meson clang git lld
+RUN apk upgrade && apk add musl-devel meson clang git lld
 
 COPY . /ffmpegaacsucks
 
