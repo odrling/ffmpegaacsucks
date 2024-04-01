@@ -60,6 +60,12 @@ static void ffaacsucks_priv_check_avfcontext(AVFormatContext *s,
     return;
 
   res->streams = malloc(sizeof(int) * aac_streams);
+  if (res->streams == NULL) {
+    perror("failed to allocate memory");
+    res->n_streams = -1;
+    return;
+  }
+
   AVPacket *pkt = av_packet_alloc();
 
   while (aac_streams > 0) {
@@ -81,10 +87,19 @@ static void ffaacsucks_priv_check_avfcontext(AVFormatContext *s,
 
 struct ffaacsucks_result *ffaacsucks_check_avfcontext(AVFormatContext *s) {
   struct ffaacsucks_result *res = malloc(sizeof(struct ffaacsucks_result));
+  if (res == NULL) {
+    perror("failed to allocate memory");
+    return NULL;
+  }
   res->n_streams = 0;
   res->streams = NULL;
 
   ffaacsucks_priv_check_avfcontext(s, res);
+
+  if(res->n_streams < 0) {
+    ffaacsucks_result_free(res);
+    return NULL;
+  }
 
   return res;
 }
@@ -93,6 +108,10 @@ struct ffaacsucks_result *ffaacsucks_check(char *filepath) {
   AVFormatContext *s = NULL;
   int ret;
   struct ffaacsucks_result *res = malloc(sizeof(struct ffaacsucks_result));
+  if (res == NULL) {
+    perror("failed to allocate memory");
+    return NULL;
+  }
   res->n_streams = 0;
   res->streams = NULL;
 
@@ -108,6 +127,11 @@ struct ffaacsucks_result *ffaacsucks_check(char *filepath) {
 
   avformat_close_input(&s);
   avformat_free_context(s);
+
+  if (res->n_streams < 0) {
+    ffaacsucks_result_free(res);
+    return NULL;
+  }
 
   return res;
 }
