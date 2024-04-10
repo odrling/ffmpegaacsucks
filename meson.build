@@ -1,6 +1,7 @@
 project(
     'ffmpegaacsucks',
     'c',
+    license: 'LGPL-3.0-only',
     version: '2.0.0',
     default_options: ['warning_level=3', 'c_std=gnu17'],
 )
