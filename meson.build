@@ -2,7 +2,7 @@ project(
     'ffmpegaacsucks',
     'c',
     license: 'LGPL-3.0-only',
-    version: '2.0.0',
+    version: '2.0.1',
     default_options: ['warning_level=3', 'c_std=gnu17'],
 )
 
@@ -52,5 +52,6 @@ pkg.generate(libffmpegaacsucks)
 
 ffmpegaacsucks_dep = declare_dependency(
     link_with: libffmpegaacsucks,
+    dependencies: libavdeps,
     include_directories: [inc],
 )
