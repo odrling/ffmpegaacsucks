@@ -2,7 +2,7 @@ project(
     'ffmpegaacsucks',
     'c',
     license: 'LGPL-3.0-only',
-    version: '2.0.1',
+    version: '2.0.2',
     default_options: ['warning_level=3', 'c_std=gnu17'],
 )
 
@@ -38,14 +38,16 @@ libffmpegaacsucks = library(
     soversion: '3',
 )
 
-ffmpegaacsucks_exe = executable(
-    'ffmpegaacsucks',
-    'ffmpegaacsucks.c',
-    include_directories: inc,
-    dependencies: libavdeps,
-    link_with: libffmpegaacsucks,
-    install: true,
-)
+if get_option('bin')
+    executable(
+        'ffmpegaacsucks',
+        'ffmpegaacsucks.c',
+        include_directories: inc,
+        dependencies: libavdeps,
+        link_with: libffmpegaacsucks,
+        install: true,
+    )
+endif
 
 pkg = import('pkgconfig')
 pkg.generate(libffmpegaacsucks)

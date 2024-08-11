@@ -1,0 +1,1 @@
+option('bin', type: 'boolean', value: true, description: 'build the ffmpegaacsucks binary')
